@@ -60,10 +60,10 @@ Use this command to edit an alternate sudoers file with validation of the syntax
 
 Final `/etc/sudoers.d/caps2esc` contents if you follow the hints above and put `caps2esc` in your `PATH`:
 ```
-%users ALL=NOPASSWD: /usr/bin/nice -n -20 $(which caps2esc)
+%users ALL=NOPASSWD: /usr/bin/nice
 ```
 
-> There are some concerns with letting all `%users` use `nice` which is why I've limited it
+> There are some security/performance concerns with letting all `%users` use `nice` which is why it should be limited to a more specific group or a single user. Because the `$(which caps2esc)` may resolve differently depending on which user it was run by we can't specify it here (or other arguments because then the command wouldn't match and passwordless sudo would fail), but we could hardcode the caps2esc path and a specific user here and in the `~/.xprofile`.
 
 
 ## Installation
